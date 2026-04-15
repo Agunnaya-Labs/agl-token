@@ -1,0 +1,17 @@
+name: AGL Web3 CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  web3:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v4
+
+      - run: npm install
+      - run: npx hardhat compile
+      - run: npx hardhat test
