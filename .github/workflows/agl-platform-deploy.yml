@@ -1,0 +1,23 @@
+name: AGL Platform Deploy
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - run: npm install
+
+      - name: Deploy Contract
+        run: npx hardhat run scripts/deploy.js --network base
+        env:
+          PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+          RPC_URL: ${{ secrets.RPC_URL }}
